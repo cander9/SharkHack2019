@@ -1,0 +1,314 @@
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import javafx.scene.text.Font;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.geometry.Pos;
+import javafx.scene.paint.Color; 
+import javafx.scene.layout.GridPane;
+import javafx.scene.control.Button;
+import javafx.scene.text.Font;
+import javafx.geometry.Insets;
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Slider; 
+import javafx.scene.control.RadioButton;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.layout.StackPane;
+import java.util.*;
+
+public class MomGUI extends Application
+{
+
+   ImageView header;
+   Button startbutt;
+   VBox vbox;
+   RadioButton white;
+   RadioButton black;
+   RadioButton asian;
+   RadioButton hispanic;
+   RadioButton other;
+   int slideAge;
+   int slideIncome;
+   Mom bob;
+
+
+   public static void main(String[] args)
+   {
+      // Launch the application.
+      launch(args);
+   }
+   
+   @Override
+   public void start(Stage stage)
+   {
+   
+      header = new ImageView("file:header.png");
+      header.setFitWidth(1600);
+      header.setFitHeight(750);
+
+      startbutt = new Button("BEGIN");
+      startbutt.getStyleClass().add("start-button");
+      startbutt.setOnAction(new StartButtonHandler());
+      startbutt.setPadding(new Insets(20));
+      
+      vbox = new VBox(header, startbutt);
+      vbox.getStyleClass().add("titleback");
+      vbox.setAlignment(Pos.CENTER);
+      
+      Scene scene = new Scene(vbox,1600,900); //create scene
+      
+      scene.getStylesheets().add("MGUIstyle.css");
+      
+      stage.setScene(scene); //set scene
+     
+      stage.setTitle("The Miracle of Birth"); //set title
+      
+      stage.show(); //show window
+
+
+   }
+   
+   class StartButtonHandler implements EventHandler<ActionEvent>
+   {
+      @Override
+      public void handle(ActionEvent event)
+      {
+      
+         vbox.getChildren().removeAll(header,startbutt);
+         
+         Label title = new Label("WHO ARE YOU?");
+         title.getStyleClass().add("title");
+         title.setTextAlignment(TextAlignment.CENTER);
+         
+         Label age = new Label("AGE");
+         age.getStyleClass().add("name");
+         age.setTextAlignment(TextAlignment.CENTER);
+         
+         Label space1 = new Label("  ");
+         space1.getStyleClass().add("spacer");
+
+         Slider slider = new Slider(20, 40, 30); 
+         slider.setBlockIncrement(5);
+         slider.setMajorTickUnit(5);
+         slider.setMinorTickCount(0);
+         slider.setShowTickLabels(true);
+         slider.setShowTickMarks(true);
+         slider.setSnapToTicks(true);
+         slider.setMinWidth(400);
+         slider.setMaxWidth(400);
+         
+         slider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+                    slideAge = new_val.intValue();
+            }
+         });
+          
+         Label income = new Label("INCOME (in thousands)");
+         income.getStyleClass().add("name");
+         income.setTextAlignment(TextAlignment.CENTER);
+         
+         Label space2 = new Label(" ");
+         space2.getStyleClass().add("spacer");
+        
+         Slider islider = new Slider(30, 150, 90); 
+         islider.setBlockIncrement(30);
+         islider.setMajorTickUnit(30);
+         islider.setMinorTickCount(10);
+         islider.setShowTickLabels(true);
+         islider.setShowTickMarks(true);
+         islider.setSnapToTicks(true);
+         islider.setMinWidth(400);
+         islider.setMaxWidth(400);
+         
+         islider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+                    slideAge = new_val.intValue();
+            }
+         });
+        
+         Label space3 = new Label(" \n\n\n\n ");
+         space3.getStyleClass().add("spacer");
+         
+         VBox ages = new VBox(age, space1, slider);
+         VBox incomes = new VBox(income, space2, islider);
+         
+         ages.setAlignment(Pos.CENTER);
+         incomes.setAlignment(Pos.CENTER);
+         
+         HBox aisliders = new HBox(ages, incomes);
+         aisliders.setSpacing(250);
+         
+         aisliders.setAlignment(Pos.CENTER);
+         
+         white = new RadioButton("white");
+         white.getStyleClass().add("radiobutt");
+         
+         black = new RadioButton("black");
+         black.getStyleClass().add("radiobutt");
+         
+         asian = new RadioButton("asian");
+         asian.getStyleClass().add("radiobutt");
+         
+         hispanic = new RadioButton("hispanic");
+         hispanic.getStyleClass().add("radiobutt");
+         
+         other = new RadioButton("other");
+         other.getStyleClass().add("radiobutt");
+         
+         // Add the choices to a ToggleGroup.
+         ToggleGroup raceGroup = new ToggleGroup();
+         white.setToggleGroup(raceGroup);
+         black.setToggleGroup(raceGroup);
+         asian.setToggleGroup(raceGroup);
+         hispanic.setToggleGroup(raceGroup);
+         other.setToggleGroup(raceGroup);
+         
+         Label race = new Label("RACE");
+         race.getStyleClass().add("name");
+         race.setTextAlignment(TextAlignment.CENTER);
+         
+         HBox raceButtons = new HBox(white, black, asian, hispanic, other);
+         raceButtons.setAlignment(Pos.CENTER);
+         raceButtons.setSpacing(50);
+         
+         Label space4 = new Label(" ");
+         space4.getStyleClass().add("spacer");
+         
+         VBox races = new VBox(race, space4, raceButtons);
+         races.setAlignment(Pos.CENTER);
+         
+         Label space5 = new Label(" \n\n ");
+         space5.getStyleClass().add("spacer");
+         
+         Button next = new Button("NEXT");
+         next.getStyleClass().add("choice-button");
+         next.setOnAction(new NextButtonHandler());
+         next.setPadding(new Insets(20));
+            
+         vbox.getStyleClass().add("choiceback");
+         
+         Label space6 = new Label(" \n\n\n\n\n ");
+         space6.getStyleClass().add("spacer");
+         
+         vbox.getChildren().addAll(title, space3, aisliders, space5, races, space6, next);
+
+      }
+   }
+   
+   class NextButtonHandler implements EventHandler<ActionEvent>
+   {
+      @Override
+      public void handle(ActionEvent event)
+      {
+      
+         String race = "other";
+         
+         if (white.isSelected()){
+            race = "white";
+         }else if (black.isSelected()){
+            race = "black";
+         }else {
+            race = "other";
+         }
+         
+         bob = new Mom(slideIncome, race, slideAge);
+            
+         vbox.getChildren().clear();
+         vbox.getStyleClass().add("map");
+         
+         StackPane stackPane = new StackPane();
+         
+         Button boston = new Button("b");
+         boston.setOnAction(new BosButtonHandler());
+         boston.getStyleClass().add("loc-button");
+         stackPane.getChildren().add(boston);
+         
+         boston.setTranslateX(-352);
+         boston.setTranslateY(-100);
+         
+         Button atlanta = new Button("a");
+         atlanta.getStyleClass().add("loc-button");
+         stackPane.getChildren().add(atlanta);
+         
+         atlanta.setTranslateX(-412);
+         atlanta.setTranslateY(-73);
+         
+         Button ba = new Button("b");
+         ba.getStyleClass().add("loc-button");
+         stackPane.getChildren().add(ba);
+         
+         ba.setTranslateX(-296);
+         ba.setTranslateY(282);
+         
+         Button berlin = new Button("g");
+         berlin.getStyleClass().add("loc-button");
+         stackPane.getChildren().add(berlin);
+         
+         berlin.setTranslateX(9);
+         berlin.setTranslateY(-155);
+         
+         Button cairo = new Button("c");
+         cairo.getStyleClass().add("loc-button");
+         stackPane.getChildren().add(cairo);
+         
+         cairo.setTranslateX(78);
+         cairo.setTranslateY(-35);
+         
+         Button jakarta = new Button("i");
+         jakarta.getStyleClass().add("loc-button");
+         stackPane.getChildren().add(jakarta);
+         
+         jakarta.setTranslateX(428);
+         jakarta.setTranslateY(135);
+         
+         vbox.getChildren().add(stackPane);
+
+       
+      }
+   }
+   
+   class BosButtonHandler implements EventHandler<ActionEvent>
+   {
+      @Override
+      public void handle(ActionEvent event)
+      {
+      
+         bob.setLoc("Boston",bob);
+         
+         String text = "blah";
+         
+         if(bob.isInsured()){
+            text = "YOU HAVE GREAT HEALTH INSURANCE, SO YOU HAVE ACCESSIBLE OPTIONS. WHERE WILL YOU GIVE BIRTH?";
+         } else {
+            text = "UNFORTUNATELY, YOU DON'T HAVE HEALTH INSURANCE, SO A HOSPITAL BIRTH IS VERY EXPENSIVE. WHERE WILL YOU GIVE BIRTH?";
+         }
+         
+         String hoslabel = "Hospital: $" + bob.getHospitalCost();
+         String homelabel = "Home: $" + bob.getHomeCost();
+         
+         Label header = new Label(text);
+         header.getStyleClass().add("loc-button");
+         
+         Button hospital = new Button(hoslabel);
+         Button home = new Button(homelabel)
+         hospital.getStyleClass().add("choice-button");
+         home.getStyleClass().add("choice-button");
+      
+      } 
+   }
+
+
+
+}
