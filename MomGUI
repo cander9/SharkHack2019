@@ -371,7 +371,6 @@ public class MomGUI extends Application
             text = "YOU DON'T HAVE HEALTH INSURANCE, BUT YOU CAN GO TO THE PUBLIC HOSPITAL. YOU CAN ALSO HAVE YOUR FAMILY MEMBERS ASSIST YOU AT HOME. WHERE WILL YOU GIVE BIRTH?";
          }
          
-         String hoslabel = "Hospital: $" + bob.getHospitalCost();
          String homelabel = "Home: $0";
          
          Label header = new Label(text);
@@ -409,6 +408,56 @@ public class MomGUI extends Application
       
       } 
    }
+   
+      class CairoButtonHandler implements EventHandler<ActionEvent>
+      {
+         @Override
+         public void handle(ActionEvent event)
+         {
+         
+         bob.setLoc("Cairo",bob);
+         
+         String text = "blah";
+         
+         text = "FORTUNATELY, EGYPT HAS UNIVERSAL HEALTH CARE! HOWEVER, THEY DO NOT ALLOW HOME BIRTHS, SO YOU'LL HAVE TO GO TO THE HOSPITAL."
+         
+         String hoslabel = "Hospital: $" + 100;
+
+         Label header = new Label(text);
+         header.getStyleClass().add("loc-button");
+         
+         Button hospital = new Button(hoslabel);
+         hospital.getStyleClass().add("choice-button");
+
+      }
+   }
+   
+   class BuenosButtonHandler implements EventHandler<ActionEvent>
+      {
+         @override
+         publuc void handle(Action event)
+         {
+         
+         bob.setLoc("Buenos Aires",bob);
+         
+         String text = "blah";
+
+          if(bob.isInsured()){
+            hoslabel = "Hospital: $" + Integer.toString(bob.printInsuredCost());
+            text = "YOU HAVE GREAT HEALTH INSURANCE, SO YOU HAVE ACCESSIBLE OPTIONS. BUENOS AIRES DOES NOT ALLOW HOME BIRTHS.";
+         } else {
+            String hoslabel = "Hospital: $" + Integer.toString(bob.printNotInsuredCost());
+            text = "UNFORTUNATELY, YOU DON'T HAVE HEALTH INSURANCE, SO A HOSPITAL BIRTH IS VERY EXPENSIVE.";
+         }
+         
+         Label header = new Label(text);
+         header.getStyleClass().add("loc-button");
+         
+         Button hospital = new Button(hoslabel);
+         hospital.getStyleClass().add("choice-button");
+
+      }
+
 
 
 
