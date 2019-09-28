@@ -289,14 +289,115 @@ public class MomGUI extends Application
          
          String text = "blah";
          
+         int incost = bob.printInsuredCost();
+         
+         String hoslabel: "blah"
+         
          if(bob.isInsured()){
             text = "YOU HAVE GREAT HEALTH INSURANCE, SO YOU HAVE ACCESSIBLE OPTIONS. WHERE WILL YOU GIVE BIRTH?";
+            hoslabel = "Hospital: $" + Integer.toString(bob.printInsuredCost());
          } else {
             text = "UNFORTUNATELY, YOU DON'T HAVE HEALTH INSURANCE, SO A HOSPITAL BIRTH IS VERY EXPENSIVE. WHERE WILL YOU GIVE BIRTH?";
+            String hoslabel = "Hospital: $" + Integer.toString(bob.printNotInsuredCost());
+         }
+         
+         String homelabel = "Home: $" + bob.printHomeCost();
+         
+         Label header = new Label(text);
+         header.getStyleClass().add("loc-button");
+         
+         Button hospital = new Button(hoslabel);
+         Button home = new Button(homelabel)
+         hospital.getStyleClass().add("choice-button");
+         home.getStyleClass().add("choice-button");
+      
+      } 
+   }
+   
+   class AtlButtonHandler implements EventHandler<ActionEvent>
+   {
+      @Override
+      public void handle(ActionEvent event)
+      {
+      
+         bob.setLoc("Atlanta",bob);
+         
+         String text = "blah";
+         
+         int incost = bob.printInsuredCost();
+         
+         String hoslabel: "blah"
+         
+         if(bob.isInsured()){
+            text = "YOU HAVE GREAT HEALTH INSURANCE, SO YOU HAVE ACCESSIBLE OPTIONS. WHERE WILL YOU GIVE BIRTH?";
+            hoslabel = "Hospital: $" + Integer.toString(bob.printInsuredCost());
+         } else {
+            text = "UNFORTUNATELY, YOU DON'T HAVE HEALTH INSURANCE, SO A HOSPITAL BIRTH IS VERY EXPENSIVE. WHERE WILL YOU GIVE BIRTH?";
+            String hoslabel = "Hospital: $" + Integer.toString(bob.printNotInsuredCost());
+         }
+         
+         String homelabel = "Home: $" + bob.printHomeCost();
+         
+         Label header = new Label(text);
+         header.getStyleClass().add("loc-button");
+         
+         Button hospital = new Button(hoslabel);
+         Button home = new Button(homelabel)
+         hospital.getStyleClass().add("choice-button");
+         home.getStyleClass().add("choice-button");
+      
+      } 
+   }
+   
+   class JakButtonHandler implements EventHandler<ActionEvent>
+   {
+      @Override
+      public void handle(ActionEvent event)
+      {
+      
+         bob.setLoc("Jakarta",bob);
+         
+         String text = "blah";
+         
+         int incost = bob.printInsuredCost();
+         
+         String hoslabel: "blah"
+         
+         if(bob.isInsured()){
+            hoslabel = "Hospital: $" + Integer.toString(bob.printInsuredCost());
+            text = "YOU HAVE HEALTH INSURANCE AND CAN AFFORD TO GO TO A PRIVATE HOSPITAL, OR YOU CAN HAVE YOUR FAMILY MEMBERS ASSIST YOU AT HOME. WHERE WILL YOU GIVE BIRTH?";
+         } else {
+            String hoslabel = "Hospital: $" + Integer.toString(bob.printNotInsuredCost());
+            text = "YOU DON'T HAVE HEALTH INSURANCE, BUT YOU CAN GO TO THE PUBLIC HOSPITAL. YOU CAN ALSO HAVE YOUR FAMILY MEMBERS ASSIST YOU AT HOME. WHERE WILL YOU GIVE BIRTH?";
          }
          
          String hoslabel = "Hospital: $" + bob.getHospitalCost();
-         String homelabel = "Home: $" + bob.getHomeCost();
+         String homelabel = "Home: $0";
+         
+         Label header = new Label(text);
+         header.getStyleClass().add("loc-button");
+         
+         Button hospital = new Button(hoslabel);
+         Button home = new Button(homelabel)
+         hospital.getStyleClass().add("choice-button");
+         home.getStyleClass().add("choice-button");
+      
+      } 
+   }
+   
+   class BerlinButtonHandler implements EventHandler<ActionEvent>
+   {
+      @Override
+      public void handle(ActionEvent event)
+      {
+      
+         bob.setLoc("Berlin",bob);
+         
+         String text = "FORTUNATELY, GERMANY HAS UNIVERSAL HEALTHCARE AND ALL OF YOUR OPTIONS ARE FULLY COVERED. WHERE WILL YOU GIVE BIRTH?";
+         
+         String hoslabel = "Hospital: $0";
+         String bhomelabel = "Birth Home: $0";
+         String homelabel = "Home: $0";
          
          Label header = new Label(text);
          header.getStyleClass().add("loc-button");
@@ -309,6 +410,9 @@ public class MomGUI extends Application
       } 
    }
 
+
+
+}
 
 
 }
