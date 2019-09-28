@@ -20,8 +20,12 @@ public class Mom <T> {
         age = a;
     }
 
-    public void setLoc(String l,int hc,int ic,int nic) {
-        loc = new Location(l,hc,ic,nic);
+    public void setLoc(String l, Mom b) {
+        loc = new Location(l,b);
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     public int getMoney() {
@@ -90,12 +94,30 @@ public class Mom <T> {
     }
 
     public boolean complication(){
+        loc.instantiateCosts();
         double cRisk = loc.compRisk();
         int randInt = new Random().nextInt(101);
         if(randInt<cRisk){
             complication = true;
         }
+        if(complication) {
+            loc.compCosts();
+        }
+        applyCostToMoney();
         return(complication);
+    }
+
+    public void applyCostToMoney(){
+        if(home){
+            cost = loc.getHomeCost();
+        }
+        else if(insurance){
+            cost = loc.getInsuredCost();
+        }
+        else{
+            cost = loc.getNotInsuredCost();
+        }
+        money = money - cost;
     }
 
     public boolean death(){
