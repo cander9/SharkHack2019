@@ -1,4 +1,5 @@
 public class Location {
+    
     String loc = " ";
     String race;
     double deathRisk;
